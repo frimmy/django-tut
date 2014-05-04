@@ -17,6 +17,7 @@ class PollAdmin(admin.ModelAdmin):
 	
 	inlines = [ChoiceInline]
 	search_fields = ['question']
+	
 	# fields = ['pub_date', 'question']
 	# list_display is the tuple of field names to display on the admin panel
 	list_display = ('question', 'pub_date', 'was_published_recently')
