@@ -27,6 +27,8 @@ class IndexView(generic.ListView):
 # def detail(request, poll_id):
 # 	poll = get_object_or_404(Poll, pk=poll_id)
 # 	return render(request, 'polls/detail.html', {'poll': poll})
+def viewable_polls():
+	return Poll.objects.filter(pub_date__lte=timezone.now())
 
 class DetailView(generic.DetailView):
 	model = Poll
@@ -36,14 +38,17 @@ class DetailView(generic.DetailView):
 		"""
 		Excludes any polls that aren't published yet.
 		"""
-		return Poll.objects.filter(pub_date__lte=timezone.now())
-# def results(request, poll_id):
-# 	poll = get_object_or_404(Poll, pk=poll_id)
-# 	return render(request, 'polls/results.html', {'poll': poll})
+		return viewable_polls()
 
 class ResultsView(generic.DetailView):
 	model = Poll
 	template_name = "polls/results.html"
+
+	def get_queryset(self):
+		"""
+		Excludes any polls that aren't published yet
+		"""
+		return viewable_polls()
 
 def vote(request, poll_id):
 	p = get_object_or_404(Poll, pk=poll_id)
