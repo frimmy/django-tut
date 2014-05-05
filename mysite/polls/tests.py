@@ -13,4 +13,7 @@ class PollMethodTests(TestCase):
 		pub_date is in the future
 		"""
 		future_poll = Poll(pub_date=timezone.now() + datetime.timedelta(days=30))
-		self.assertEqual(future_poll.was_published_recently(), False, msg="YA FAILED.")
+		self.assertEqual(future_poll.was_published_recently(), False, 
+		msg=("YAH DUDE, TEST FAILED, future polls aren't recen't"
+				" if they ain't been made yet..."
+			))
