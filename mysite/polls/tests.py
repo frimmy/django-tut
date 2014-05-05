@@ -118,3 +118,5 @@ class PollIndexDetailTests(TestCase):
 		past_poll = create_poll(question="Past poll", days=-5)
 		response = self.client.get(reverse('polls:detail', args=(past_poll.id,)))
 		self.assertContains(response, past_poll.question, status_code=200)
+
+# class PollIndex
